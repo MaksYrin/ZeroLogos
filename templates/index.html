@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Генератор логотипов и изображений</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fefefe;
+            padding: 40px;
+            color: #330000;
+        }
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            color: darkred;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        .block {
+            width: 45%;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        textarea {
+            height: 100px;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .logo-button {
+            background-color: darkred;
+        }
+        .image-button {
+            background-color: darkblue;
+        }
+        .result {
+            text-align: center;
+            margin-top: 30px;
+        }
+        img {
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Генератор логотипов и изображений</h1>
+    <div class="container">
+        <div class="block">
+            <h2>Генератор логотипов</h2>
+            <form method="POST" action="/generate_logo">
+                <label>Форма:</label>
+                <input type="text" name="shape" placeholder="например, круг">
+                <label>Стиль:</label>
+                <input type="text" name="style" placeholder="например, минимализм">
+                <label>Описание:</label>
+                <input type="text" name="description" placeholder="например, логотип IT-компании">
+                <button type="submit" class="logo-button">Сгенерировать логотип</button>
+            </form>
+        </div>
+
+        <div class="block">
+            <h2>Генератор изображений</h2>
+            <form method="POST" action="/generate_image">
+                <label>Описание:</label>
+                <textarea name="prompt" placeholder="например, лес в стиле импрессионизм"></textarea>
+                <button type="submit" class="image-button">Сгенерировать изображение</button>
+            </form>
+        </div>
+    </div>
+
+    {% if logo_url %}
+    <div class="result">
+        <h3>Сгенерированный логотип:</h3>
+        <img src="{{ logo_url }}" alt="Логотип">
+        <br><a href="{{ logo_url }}" download><button>Скачать логотип</button></a>
+    </div>
+    {% endif %}
+
+    {% if image_url %}
+    <div class="result">
+        <h3>Сгенерированное изображение:</h3>
+        <img src="{{ image_url }}" alt="Изображение">
+        <br><a href="{{ image_url }}" download><button>Скачать изображение</button></a>
+    </div>
+    {% endif %}
+</body>
+</html>
